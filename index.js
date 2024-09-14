@@ -55,11 +55,11 @@ io.on('connection', (socket) => {
 
     // Teacher asks a question
     socket.on('ask-question', (questionData) => {
-        // if (!teacherConnected || socket.id !== users.find(user => user.role === 'teacher').id) {
-        //     socket.emit('error', 'Only the teacher can ask a question.');
-        //     console.log('user not registered')
-        //     return;
-        // }
+        if (!teacherConnected || socket.id !== users.find(user => user.role === 'teacher').id) {
+            socket.emit('error', 'Only the teacher can ask a question.');
+            console.log('user not registered')
+            return;
+        }
 
         currentQuestion = {
             text: questionData.question,
